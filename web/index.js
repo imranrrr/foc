@@ -73,13 +73,12 @@ export async function createServer(
   billingSettings = BILLING_SETTINGS
 ) {
   const app = express();
+  app.use(cors())
   tables();
   app.set("use-online-tokens", USE_ONLINE_TOKENS);
   app.use(cookieParser(Shopify.Context.API_SECRET_KEY));
 
-  applyAuthMiddleware(app, {
-    billing: billingSettings,
-  });
+  applyAuthMiddleware(app);
 
   // Do not call app.use(express.json()) before processing webhooks with
   // Shopify.Webhooks.Registry.process().
@@ -122,6 +121,27 @@ export async function createServer(
     const countData = await Product.count({ session });
     res.status(200).send(countData);
   });
+
+   app.post("/api/comment/:id", verifyRequest(app), async (req, res) => {
+        console.log("imran")
+        const session = await Shopify.Utils.loadCurrentSession(
+          req,
+          res,
+          app.get("use-online-tokens")
+        );
+        const { id } = req.params;
+        console.log(id)
+        const params = id.split("^")
+        console.log("sessei")
+        console.log(params)
+    
+        const userInfo = session?.onlineAccessInfo?.associated_user
+        // const response = await createComment(req.body, {product_id: id, user_name: userInfo?.first_name + " "+userInfo?.last_name , user_id: session?.id, user_email: userInfo?.email});
+        console.log(userInfo)
+        console.log("imran")
+        // console.log(response)
+        res.status(200).send("response");
+      });
 
   app.get("/api/products/create", async (req, res) => {
     const session = await Shopify.Utils.loadCurrentSession(

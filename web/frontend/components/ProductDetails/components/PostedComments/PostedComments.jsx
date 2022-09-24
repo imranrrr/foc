@@ -3,7 +3,7 @@ import "./PostedComments.css";
 import { useAppQuery } from "../../../../hooks";
 import {Page, Spinner, TextStyle} from '@shopify/polaris';
 
-const PostedComments = ({productId}) => {
+const PostedComments = ({productId, selected}) => {
   const [comments, setComments] = useState([])
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,18 +29,19 @@ const PostedComments = ({productId}) => {
     }
   }, [data, isCommentsLoading])
 
-
+  useEffect(()=>setIsLoading(true)
+  ,[selected])
 
 
     return (
-      <Page>
+      <>
         {
           isLoading ? <Spinner accessibilityLabel="Spinner example" size="large" />
         :
           <section className="comments__addComments">
             {
               comments.length > 0 ? comments.map((comment) =>(
-                <section section className="comments__addComments__main">
+                <section section key={comment.id} className="comments__addComments__main">
                   <div className="comments__addComments__main__box">
                     <img
                       src="https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850"
@@ -65,7 +66,7 @@ const PostedComments = ({productId}) => {
           {/* </Frame> */}
           </section>
         }
-      </Page>
+      </>
     );
 };
 
