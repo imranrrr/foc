@@ -5,7 +5,7 @@ export default function useQueries(){
   
   async function getComments(id){
       try {
-        const commentsList = await knex1.select().from("comments");
+        const commentsList = await knex1.select().from("comments").where({product_id: id})
         return {status: true, comment: commentsList}
       }catch(err){
         return {status: false, error: err}
