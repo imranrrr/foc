@@ -1,0 +1,45 @@
+.comments__newComment {
+  margin: 1rem;
+}
+
+@media (max-width: 500px) {
+  .comments__newComment {
+    margin: 0.5rem 0;
+  }
+}
+
+.comments__newComment__addNew {
+  border-radius: 0.5rem;
+}
+
+.comments__newComment__addNew h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.comments__newComment__addNew textarea {
+  width: 100%;
+  border-radius: 5px;
+  padding: 1rem;
+  outline: none;
+  border: none;
+  margin-bottom: 0.5rem;
+  /* background-color: #f3f3f3a6; */
+  border: 1px solid lightgray;
+  /* box-shadow: 1px 1px 2px rgba(128, 128, 128, 0.5); */
+}
+
+.comments__newComment__addNew__button {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid lightgray;
+}
+
+.comments__newComment__addNew__button Button {
+  text-transform: capitalize;
+  font-weight: bold;
+  /* background-color: gray !important; */
+  margin-top: 0.8rem;
+  padding: 3px 10px;
+}
