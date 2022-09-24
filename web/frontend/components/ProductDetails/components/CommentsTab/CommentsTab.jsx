@@ -18,7 +18,7 @@ const CommentsTab = ({productId}) => {
       content: "Comments",
       accessibilityLabel: "All customers",
       panelID: "all-customers-content-1",
-      component: <PostedComments productId={productId} />,
+      component: <PostedComments productId={productId} selected={selected}/>,
     },
     {
       id: "accepts-marketing-1",
