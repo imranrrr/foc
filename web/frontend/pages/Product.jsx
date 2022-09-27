@@ -8,7 +8,7 @@ import {
 import { useAppQuery } from "../hooks";
 import  BulkActions from "../components/bulkActions/BulkActions"
 import { Link } from "react-router-dom";
-
+import SeacrchFilter from '../components/searchFilter/SearchFilter'
 const resourceName = {
   singular: "product",
   plural: "products",
@@ -16,7 +16,7 @@ const resourceName = {
 export default function Product() {
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([])
-  
+
   const {
     data,
     refetch: refetchProducts,
@@ -75,7 +75,8 @@ export default function Product() {
 
   return (
     <>
-      <Card
+      <SeacrchFilter products={products}/>
+      {/* <Card
         title="Products"
         sectioned
         actions={[
@@ -104,7 +105,7 @@ export default function Product() {
         >
           {rowMarkup}
         </IndexTable>
-      </Card>
+      </Card> */}
     </>
   );
 }
