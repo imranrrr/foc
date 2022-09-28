@@ -4,6 +4,7 @@ import {
   IndexTable,
   TextStyle,
   useIndexResourceState,
+  TextField
 } from "@shopify/polaris";
 import { useAppQuery } from "../hooks";
 import  BulkActions from "../components/bulkActions/BulkActions"
@@ -16,6 +17,7 @@ const resourceName = {
 export default function Product() {
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([])
+  const [productsData, setProductsData] = useState([])
 
   const {
     data,
@@ -34,6 +36,7 @@ export default function Product() {
   useEffect(()=>{
     if(!isProductLoading && data){
         setProducts(data)
+        setProductsData(data)
     }else{
         setIsLoading(true);
     }
@@ -75,7 +78,7 @@ export default function Product() {
 
   return (
     <>
-      <SeacrchFilter products={products}/>
+      <SeacrchFilter products={products} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData}/>
       {/* <Card
         title="Products"
         sectioned
