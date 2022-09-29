@@ -31,7 +31,7 @@ export default function SeacrchFilter({
     const flterProducts =
       value !== ""
         ? products.filter((product) =>
-            product.title.toLowerCase().includes(value)
+            product.title.toLowerCase().includes(value.toLowerCase())
           )
         : products;
     setQueryValue(value);
@@ -52,14 +52,14 @@ export default function SeacrchFilter({
       filterProducts =
         value !== ""
           ? filterProducts.filter(
-              (product) => product.vendor.toLowerCase() === value.toLowerCase()
+              (product) => product.vendor.toLowerCase().includes(value.toLowerCase())
             )
           : filterProducts;
       setVendor(value);
     }
     if (type === "input") {
       filterProducts = filterProducts.filter(
-        (product) => product.title.toLowerCase() === value.toLowerCase()
+        (product) => product.title.toLowerCase().includes(value.toLowerCase())
       );
       setQueryValue(value);
     }
@@ -70,12 +70,12 @@ export default function SeacrchFilter({
     setMoneySpent(null);
     if (vendor) {
       filterProducts = filterProducts.filter(
-        (product) => product.vendor.toLowerCase() === vendor.toLowerCase()
+        (product) => product.vendor.toLowerCase().includes(vendor.toLowerCase())
       );
     }
     if (queryValue) {
       filterProducts = filterProducts.filter(
-        (product) => product.title.toLowerCase() === queryValue.toLowerCase()
+        (product) => product.title.toLowerCase().includes(queryValue.toLowerCase())
       );
     }
     setProductsData(filterProducts);
@@ -93,7 +93,7 @@ export default function SeacrchFilter({
     }
     if (queryValue) {
       filterProducts = filterProducts.filter(
-        (product) => product.title.toLowerCase() === queryValue.toLowerCase()
+        (product) => product.title.toLowerCase().incudes(queryValue.toLowerCase())
       );
     }
     setProductsData(filterProducts);
@@ -110,7 +110,7 @@ export default function SeacrchFilter({
     }
     if (queryValue) {
       filterProducts = filterProducts.filter(
-        (product) => product.title.toLowerCase() === queryValue.toLowerCase()
+        (product) => product.title.toLowerCase().includes(queryValue.toLowerCase())
       );
     }
     setProductsData(filterProducts);
@@ -145,7 +145,7 @@ export default function SeacrchFilter({
       filter: (
         <TextField
           label="Vendor name"
-          value={vendor}
+          value={vendor || ""}
           onChange={(value) => handleFilterChange("vendor", value)}
           autoComplete="off"
           labelHidden
@@ -202,7 +202,6 @@ export default function SeacrchFilter({
         </IndexTable.Row>
       ))
     : null;
-
   return (
     <div style={{ height: "568px" }}>
       <Card>
