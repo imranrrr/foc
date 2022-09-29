@@ -28,11 +28,10 @@ export default function SeacrchFilter({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFiltersQueryChange = (value) => {
-    debugger;
     const flterProducts =
       value !== ""
-        ? productsData.filter((product) =>
-            product.title.toLowerCase().startsWith(value)
+        ? products.filter((product) =>
+            product.title.toLowerCase().includes(value)
           )
         : products;
     setQueryValue(value);
@@ -50,9 +49,12 @@ export default function SeacrchFilter({
       setMoneySpent(value);
     }
     if (type === "vendor") {
-      filterProducts = value !== '' ? filterProducts.filter(
-        (product) => product.vendor.toLowerCase() === value.toLowerCase()
-      ) : filterProducts;
+      filterProducts =
+        value !== ""
+          ? filterProducts.filter(
+              (product) => product.vendor.toLowerCase() === value.toLowerCase()
+            )
+          : filterProducts;
       setVendor(value);
     }
     if (type === "input") {
@@ -76,7 +78,7 @@ export default function SeacrchFilter({
         (product) => product.title.toLowerCase() === queryValue.toLowerCase()
       );
     }
-    productsData(filterProducts);
+    setProductsData(filterProducts);
   };
 
   const handleVendorValueRemove = useCallback(() => {
@@ -94,7 +96,7 @@ export default function SeacrchFilter({
         (product) => product.title.toLowerCase() === queryValue.toLowerCase()
       );
     }
-    productsData(filterProducts);
+    setProductsData(filterProducts);
   });
 
   const handleQueryValueRemove = () => {
@@ -111,7 +113,7 @@ export default function SeacrchFilter({
         (product) => product.title.toLowerCase() === queryValue.toLowerCase()
       );
     }
-    productsData(filterProducts);
+    setProductsData(filterProducts);
   };
 
   const handleFiltersClearAll = () => {
