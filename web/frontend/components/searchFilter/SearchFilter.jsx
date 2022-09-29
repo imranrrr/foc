@@ -6,7 +6,7 @@ import {
   DataTable,
   IndexTable,
   TextField,
-  TextStyle
+  TextStyle,
 } from "@shopify/polaris";
 import { useState, useCallback, useEffect } from "react";
 import BulkActions from "../bulkActions/BulkActions";
@@ -16,81 +16,108 @@ const resourceName = {
   singular: "product",
   plural: "products",
 };
-export default function SeacrchFilter({products, isProductLoading, setProductsData, productsData}) {
+export default function SeacrchFilter({
+  products,
+  isProductLoading,
+  setProductsData,
+  productsData,
+}) {
   const [moneySpent, setMoneySpent] = useState(null);
   const [vendor, setVendor] = useState(null);
   const [queryValue, setQueryValue] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleFiltersQueryChange = 
-    (value) => {
-      debugger
-    const flterProducts = (value !== '')  ? productsData.filter((product) => product.title.toLowerCase().startsWith(value)) : products
-    setQueryValue(value)
-    setProductsData(flterProducts)
-  }
+  const handleFiltersQueryChange = (value) => {
+    debugger;
+    const flterProducts =
+      value !== ""
+        ? productsData.filter((product) =>
+            product.title.toLowerCase().startsWith(value)
+          )
+        : products;
+    setQueryValue(value);
+    setProductsData(flterProducts);
+  };
 
-
-  const handleFilterChange =(type, value)=>{
-    let filterProducts = productsData
-    if(type === "money"){
-        filterProducts = filterProducts.filter((product)=> product.variants[0].price >= value[0] && product.variants[0].price <= value[1])
-        setMoneySpent(value)
+  const handleFilterChange = (type, value) => {
+    let filterProducts = products;
+    if (type === "money") {
+      filterProducts = filterProducts.filter(
+        (product) =>
+          product.variants[0].price >= value[0] &&
+          product.variants[0].price <= value[1]
+      );
+      setMoneySpent(value);
     }
-    if(type === "vendor"){
-      filterProducts = filterProducts.filter((product) => product.venodr.toLowerCase() === value.toLowerCase()) 
-      setVendor(value)
+    if (type === "vendor") {
+      filterProducts = value !== '' ? filterProducts.filter(
+        (product) => product.vendor.toLowerCase() === value.toLowerCase()
+      ) : filterProducts;
+      setVendor(value);
     }
-    if (type === "input"){
-      filterProducts = filterProducts.filter((product) => product.title.toLowerCase() === value.toLowerCase())
-      setQueryValue(value)
+    if (type === "input") {
+      filterProducts = filterProducts.filter(
+        (product) => product.title.toLowerCase() === value.toLowerCase()
+      );
+      setQueryValue(value);
     }
-    debugger
-    setProductsData(filterProducts)
-  }
-
+    setProductsData(filterProducts);
+  };
   const handleMoneySpentRemove = () => {
-    let filterProducts = products
-    setMoneySpent(null)
-    if(vendor){
-      filterProducts = filterProducts.filter((product) => product.venodr.toLowerCase() === vendor.toLowerCase()) 
+    let filterProducts = products;
+    setMoneySpent(null);
+    if (vendor) {
+      filterProducts = filterProducts.filter(
+        (product) => product.vendor.toLowerCase() === vendor.toLowerCase()
+      );
     }
-    if (queryValue){
-      filterProducts = filterProducts.filter((product) => product.title.toLowerCase() === queryValue.toLowerCase())
+    if (queryValue) {
+      filterProducts = filterProducts.filter(
+        (product) => product.title.toLowerCase() === queryValue.toLowerCase()
+      );
     }
-    productsData(filterProducts)
-  }
+    productsData(filterProducts);
+  };
 
-  const handleVendorValueRemove = () => {
-    setVendorValue(null)
-    let filterProducts = products
-    if(moneySpent){
-      filterProducts = filterProducts.filter((product)=> product.variants[0].price >= value[0] && product.variants[0].price <= value[1])
+  const handleVendorValueRemove = useCallback(() => {
+    setVendor(null);
+    let filterProducts = products;
+    if (moneySpent) {
+      filterProducts = filterProducts.filter(
+        (product) =>
+          product.variants[0].price >= value[0] &&
+          product.variants[0].price <= value[1]
+      );
     }
-    if (queryValue){
-      filterProducts = filterProducts.filter((product) => product.title.toLowerCase() === queryValue.toLowerCase())
+    if (queryValue) {
+      filterProducts = filterProducts.filter(
+        (product) => product.title.toLowerCase() === queryValue.toLowerCase()
+      );
     }
-    productsData(filterProducts)
+    productsData(filterProducts);
+  });
 
-  }
-
-  const handleQueryValueRemove =() => {  
-    setQueryValue(null)
-    let filterProducts = products
-    if(moneySpent){
-      filterProducts = filterProducts.filter((product)=> product.price >= moneySpent[0] && product.price <= moneySpent[1])
+  const handleQueryValueRemove = () => {
+    setQueryValue([]);
+    let filterProducts = products;
+    if (moneySpent) {
+      filterProducts = filterProducts.filter(
+        (product) =>
+          product.price >= moneySpent[0] && product.price <= moneySpent[1]
+      );
     }
-    if (queryValue){
-      filterProducts = filterProducts.filter((product) => product.title.toLowerCase() === queryValue.toLowerCase())
+    if (queryValue) {
+      filterProducts = filterProducts.filter(
+        (product) => product.title.toLowerCase() === queryValue.toLowerCase()
+      );
     }
-    productsData(filterProducts)
-    
-  }
+    productsData(filterProducts);
+  };
 
   const handleFiltersClearAll = () => {
     handleMoneySpentRemove();
     handleVendorValueRemove();
-  }
+  };
 
   const filters = [
     {
@@ -106,18 +133,18 @@ export default function SeacrchFilter({products, isProductLoading, setProductsDa
           min={0}
           max={2000}
           step={1}
-          onChange={(value)=>handleFilterChange("money", value)}
+          onChange={(value) => handleFilterChange("money", value)}
         />
       ),
     },
     {
-      key: 'vendor',
-      label: 'Vendor Name',
+      key: "vendor",
+      label: "Vendor Name",
       filter: (
         <TextField
           label="Vendor name"
           value={vendor}
-          onChange={(value)=>handleFilterChange("vendor", value)}
+          onChange={(value) => handleFilterChange("vendor", value)}
           autoComplete="off"
           labelHidden
         />
@@ -138,20 +165,16 @@ export default function SeacrchFilter({products, isProductLoading, setProductsDa
     const key = "vendor";
     appliedFilters.push({
       key,
-      label: disambiguateLabel(key, moneySpent),
+      label: disambiguateLabel(key, vendor),
       onRemove: handleVendorValueRemove,
-    }); 
+    });
   }
 
   const { selectedResources, allResourcesSelected, handleSelectionChange } =
     useIndexResourceState(products);
 
   const rowMarkup = productsData
-  ? productsData.map(
-      (
-        { id, title, variants },
-        index
-      ) => (
+    ? productsData.map(({ id, title, variants }, index) => (
         <IndexTable.Row
           id={id}
           key={id}
@@ -171,11 +194,12 @@ export default function SeacrchFilter({products, isProductLoading, setProductsDa
           <IndexTable.Cell>${variants[0].price}</IndexTable.Cell>
           <IndexTable.Cell>{variants[0].sku}</IndexTable.Cell>
           <IndexTable.Cell>{variants[0].inventory_quantity}</IndexTable.Cell>
-          <IndexTable.Cell>{variants[0].old_inventory_quantity}</IndexTable.Cell>
+          <IndexTable.Cell>
+            {variants[0].old_inventory_quantity}
+          </IndexTable.Cell>
         </IndexTable.Row>
-      )
-    )
-  : null;
+      ))
+    : null;
 
   return (
     <div style={{ height: "568px" }}>
@@ -187,12 +211,12 @@ export default function SeacrchFilter({products, isProductLoading, setProductsDa
             appliedFilters={appliedFilters}
             onQueryChange={handleFiltersQueryChange}
             onQueryClear={handleQueryValueRemove}
-            onClearAll={() =>handleFiltersClearAll()}
+            onClearAll={() => handleFiltersClearAll()}
           >
-            <BulkActions products={products}/>
+            <BulkActions products={products} />
           </Filters>
         </Card.Section>
-         <IndexTable
+        <IndexTable
           resourceName={resourceName}
           itemCount={products.length}
           selectedItemsCount={
@@ -218,6 +242,8 @@ export default function SeacrchFilter({products, isProductLoading, setProductsDa
     switch (key) {
       case "moneySpent":
         return `Money spent is between $${value[0]} and $${value[1]}`;
+      case "vendor":
+        return `vendor with ${value}`;
       default:
         return value;
     }
