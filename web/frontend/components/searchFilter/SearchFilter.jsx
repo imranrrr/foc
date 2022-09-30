@@ -175,8 +175,11 @@ export default function SeacrchFilter({
   const { selectedResources, allResourcesSelected, handleSelectionChange } =
     useIndexResourceState(products);
 
+    useEffect(()=>{
+      console.log(selectedResources)
+    }, [selectedResources])
   const rowMarkup = productsData
-    ? productsData.map(({ id, title, variants }, index) => (
+    ? productsData.map(({ id, title, variants, vendor, status }, index) => (
         <IndexTable.Row
           id={id}
           key={id}
@@ -199,6 +202,12 @@ export default function SeacrchFilter({
           <IndexTable.Cell>
             {variants[0].old_inventory_quantity}
           </IndexTable.Cell>
+          <IndexTable.Cell>
+            {vendor}
+          </IndexTable.Cell>
+          <IndexTable.Cell>
+            {status}
+          </IndexTable.Cell>
         </IndexTable.Row>
       ))
     : null;
@@ -214,7 +223,7 @@ export default function SeacrchFilter({
             onQueryClear={handleQueryValueRemove}
             onClearAll={() => handleFiltersClearAll()}
           >
-            <BulkActions products={products} />
+            <BulkActions products={products} selectedProducts={selectedResources} setIsLoading={setIsLoading} isLoading={isLoading}/>
           </Filters>
         </Card.Section>
         <IndexTable
@@ -231,6 +240,8 @@ export default function SeacrchFilter({
             { title: "SKU Number" },
             { title: "Net Quantity" },
             { title: "Total Quantity" },
+            { title: "vendor" },
+            { title: "Status" },
           ]}
         >
           {rowMarkup}

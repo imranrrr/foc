@@ -68,4 +68,32 @@ export default function productRoute(app){
         
         res.status(200).send(response);
       });
+
+      app.put("/api/product/status/:id", verifyRequest(app), async (req, res) => {
+        
+        const session = await Shopify.Utils.loadCurrentSession(
+          req,
+          res,
+          app.get("use-online-tokens")
+        );
+
+        const { Product } = await import(
+          `@shopify/shopify-api/dist/rest-resources/${Shopify.Context.API_VERSION}/index.js`
+        );
+        const { id } = req.params;
+        const params = id.split("^")
+
+        const product = new Product({session: session});
+        product.id = params[1];
+        product.status = params[0]
+        console.log(params)
+
+
+        const response  = await product.save({
+          update: true,
+        });
+        console.log("Test")
+        console.log(response)
+        res.status(200).send(response);
+      });
 }
