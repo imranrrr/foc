@@ -2,9 +2,9 @@ import { Button, Popover, ActionList, TextField } from "@shopify/polaris";
 import { useState, useCallback } from "react";
 import { CSVLink } from "react-csv";
 import { useAuthenticatedFetch } from "../../hooks";
-const BulkActions = ({ products, selectedProducts, setIsLoading, isLoading }) => {
-  const [active, setActive] = useState(false);
 
+const BulkActions = ({ products, selectedProducts, setLoading, isLoading }) => {
+  const [active, setActive] = useState(false);
   const toggleActive = useCallback(() => setActive((active) => !active), []);
   const handleImportedAction = useCallback(() => console.log(products), []);
   const fetch = useAuthenticatedFetch();
@@ -31,25 +31,45 @@ const BulkActions = ({ products, selectedProducts, setIsLoading, isLoading }) =>
     // const parsedBody = { description: comment, date: new Date() };
     const method = "PUT";
     const  body = status+"^"+productId
-    debugger
     await fetch(`/api/product/status/${body}`, {
       method,
       headers: { "Content-Type": "application/json" },
     });
   }
 
-  const activeAndDeactive = () =>{
-    setIsLoading(true);
+  const activeProduct = async () =>{
+    await setLoading(true);
     setActive(false)
     selectedProducts.map((id) =>{
       const product = products.find((product) => product.id === id)
-      debugger
-      const status = product.status === "active" ? "draft" : "active"
+      const status = "active";
       updateStatus(status, id)
     })
-    setIsLoading(false);
-
+    setLoading(false);
   }
+
+  const archiveProduct = async () =>{
+    await setLoading(true);
+    setActive(false)
+    selectedProducts.map((id) =>{
+      const product = products.find((product) => product.id === id)
+      const status = "archive"
+      updateStatus(status, id)
+    })
+    setLoading(false);
+  }
+
+  const draftProduct = async () =>{
+    await setLoading(true);
+    setActive(false)
+    selectedProducts.map((id) =>{
+      const product = products.find((product) => product.id === id)
+      const status = "draft"
+      updateStatus(status, id)
+    })
+    setLoading(false);
+  }
+  
   const activator = (
     <Button onClick={toggleActive} disclosure>
       Bulk actions
@@ -68,10 +88,6 @@ const BulkActions = ({ products, selectedProducts, setIsLoading, isLoading }) =>
           actionRole="menuitem"
           items={[
             {
-              content: "Create barcodes",
-              onAction: handleImportedAction,
-            },
-            {
               content: (
                 <CSVLink
                   {...csvReport}
@@ -85,15 +101,19 @@ const BulkActions = ({ products, selectedProducts, setIsLoading, isLoading }) =>
             },
             {
               content: "Turn live in shopify",
-              onAction: handleExportedAction,
+              onAction: archiveProduct,
             },
             {
-              content: "Deactivate/Activate",
-              onAction: activeAndDeactive,
+              content: "Activate Product",
+              onAction: activeProduct,
+            },
+            {
+              content: "Draft Product",
+              onAction: draftProduct,
             },
             {
               content: "Archive product",
-              onAction: handleExportedAction,
+              onAction: archiveProduct,
             },
           ]}
         />

@@ -21,6 +21,7 @@ export default function SeacrchFilter({
   isProductLoading,
   setProductsData,
   productsData,
+  refetchProducts
 }) {
   const [moneySpent, setMoneySpent] = useState(null);
   const [vendor, setVendor] = useState(null);
@@ -176,8 +177,11 @@ export default function SeacrchFilter({
     useIndexResourceState(products);
 
     useEffect(()=>{
-      console.log(selectedResources)
-    }, [selectedResources])
+      if (!isLoading && products){
+        return refetchProducts;
+      }
+    }, [isLoading])
+
   const rowMarkup = productsData
     ? productsData.map(({ id, title, variants, vendor, status }, index) => (
         <IndexTable.Row
@@ -223,7 +227,7 @@ export default function SeacrchFilter({
             onQueryClear={handleQueryValueRemove}
             onClearAll={() => handleFiltersClearAll()}
           >
-            <BulkActions products={products} selectedProducts={selectedResources} setIsLoading={setIsLoading} isLoading={isLoading}/>
+            <BulkActions products={products} selectedProducts={selectedResources} setLoading={setIsLoading} loading={isLoading}/>
           </Filters>
         </Card.Section>
         <IndexTable

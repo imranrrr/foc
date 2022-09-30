@@ -25,20 +25,12 @@ export default function Product() {
     isLoading: isProductLoading,
   } = useAppQuery({
     url: "/api/products",
-    reactQueryOptions: {
-      onSuccess: () => {
-        setIsLoading(false);
-        
-      },
-    },
   });
 
   useEffect(()=>{
     if(!isProductLoading && data){
         setProducts(data)
         setProductsData(data)
-    }else{
-        setIsLoading(true);
     }
   }, [data, isProductLoading])
 
@@ -78,7 +70,7 @@ export default function Product() {
 
   return (
     <>
-      <SeacrchFilter products={products} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData}/>
+      <SeacrchFilter products={products} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetchProducts}/>
       {/* <Card
         title="Products"
         sectioned
