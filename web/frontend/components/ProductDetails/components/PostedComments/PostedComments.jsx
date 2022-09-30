@@ -61,7 +61,7 @@ const PostedComments = ({productId, selected}) => {
                 </section>
               ))
               :
-              <TextStyle variation="warning">No comments</TextStyle>
+              <TextStyle variation="warning">No Messages</TextStyle>
             }
           {/* </Frame> */}
           </section>

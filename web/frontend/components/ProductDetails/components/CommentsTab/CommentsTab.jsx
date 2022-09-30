@@ -15,14 +15,14 @@ const CommentsTab = ({productId}) => {
   const tabs = [
     {
       id: "all-customers-1",
-      content: "Comments",
+      content: "Messages",
       accessibilityLabel: "All customers",
       panelID: "all-customers-content-1",
       component: <PostedComments productId={productId} selected={selected}/>,
     },
     {
       id: "accepts-marketing-1",
-      content: "Add Comments",
+      content: "Add Message",
       panelID: "accepts-marketing-content-1",
       component: <NewComment productId={productId}/>,
     },
