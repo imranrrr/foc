@@ -60,7 +60,7 @@ const Messages = () => {
 
   useEffect(()=>{
     if(!isMessageLoading && data){    
-      setMessages(data.commentsList)
+      setMessages(data.commentsList.slice(0,5))
     }
   }, [data, isMessageLoading])
  
