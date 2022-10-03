@@ -1,6 +1,7 @@
 import { Card, Tabs } from "@shopify/polaris";
 import { useState, useCallback } from "react";
 import LowInventory from "../LowInventory/LowInventory";
+import Messages from "../Messages/Messages";
 import OutOfStock from "../OutOfStock/OutOfStock";
 import SoldProducts from "../SoldProducts/SoldProducts";
 
@@ -31,6 +32,12 @@ const DashboardTab = () => {
       content: "Out of Stock",
       panelID: "accepts-marketing-content-1",
       component: <OutOfStock />,
+    },
+    {
+      id: "accepts-messages-1",
+      content: "My messages",
+      panelID: "accepts-marketing-content-1",
+      component: <Messages />,
     },
   ];
 

@@ -21,5 +21,15 @@ export default function useQueries(){
         return {status: false, error: err}
       }
   }
-  return {createComment, getComments}
+
+  async function getMessagess(){
+    try {
+      const commentsList = await knex1.select().from("comments")
+      return {commentsList}
+    }catch(err){
+      return {status: false, error: err}
+    }
+}
+
+  return {createComment, getComments, getMessagess}
 } 

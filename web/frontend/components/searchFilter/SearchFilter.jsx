@@ -125,10 +125,10 @@ export default function SeacrchFilter({
   const filters = [
     {
       key: "moneySpent",
-      label: "Money spent",
+      label: "Price spent",
       filter: (
         <RangeSlider
-          label="Money spent is between"
+          label="Price spent is between"
           labelHidden
           value={moneySpent || [0, 500]}
           prefix="$"
@@ -277,7 +277,7 @@ export default function SeacrchFilter({
   function disambiguateLabel(key, value) {
     switch (key) {
       case "moneySpent":
-        return `Money spent is between $${value[0]} and $${value[1]}`;
+        return `Price spent is between $${value[0]} and $${value[1]}`;
       case "vendor":
         return `vendor with ${value}`;
       default:

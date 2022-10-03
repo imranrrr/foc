@@ -23,7 +23,7 @@ const SoldProducts = () => {
   }, [data, isProductLoading])
  
   return (
-    <SeacrchFilter products={products} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetchProducts}/>
+    <SeacrchFilter products={products.slice(0,5)} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetchProducts}/>
   );
 };
 

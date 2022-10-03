@@ -4,7 +4,7 @@ import knexObject from "../databaseConfiguration/database.js";
 import useQueries from "../databaseConfiguration/useQueries.js";
 export default function productRoute(app){
     const { knex1 } = knexObject();
-    const {getComments, createComment} = useQueries()
+    const {getComments, createComment, getMessagess} = useQueries()
 
     app.get("/api/products", async (req, res) => {
         const session = await Shopify.Utils.loadCurrentSession(
@@ -96,4 +96,13 @@ export default function productRoute(app){
         console.log(response)
         res.status(200).send(response);
       });
+
+
+      app.get("/api/messages", verifyRequest(app), async (req, res) => {
+        // await createComment(req.body);
+        
+        const response = await getMessagess()
+        res.status(200).send(response);
+      });
+      
 }

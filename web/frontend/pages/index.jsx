@@ -3,6 +3,7 @@ import { useState, useCallback } from "react";
 import LowInventory from "../components/dashboard/LowInventory/LowInventory";
 import OutOfStock from "../components/dashboard/OutOfStock/OutOfStock";
 import SoldProducts from "../components/dashboard/SoldProducts/SoldProducts";
+import Messages from "../components/dashboard/Messages/Messages";
 
 const Dashboard = () => {
   const [selected, setSelected] = useState(0);
@@ -31,6 +32,12 @@ const Dashboard = () => {
       content: "Out of Stock",
       panelID: "accepts-marketing-content-1",
       component: <OutOfStock />,
+    },
+    {
+      id: "accepts-messages-1",
+      content: "My messages",
+      panelID: "accepts-marketing-content-1",
+      component: <Messages />,
     },
   ];
 
