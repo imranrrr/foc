@@ -53,7 +53,7 @@ const BulkActions = ({ products, selectedProducts, setLoading, isLoading }) => {
     setActive(false)
     selectedProducts.map((id) =>{
       const product = products.find((product) => product.id === id)
-      const status = "archive"
+      const status = "archived."
       updateStatus(status, id)
     })
     setLoading(false);
@@ -69,7 +69,7 @@ const BulkActions = ({ products, selectedProducts, setLoading, isLoading }) => {
     })
     setLoading(false);
   }
-  
+
   const activator = (
     <Button onClick={toggleActive} disclosure>
       Bulk actions
