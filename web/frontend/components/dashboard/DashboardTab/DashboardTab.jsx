@@ -15,7 +15,7 @@ const DashboardTab = () => {
   const tabs = [
     {
       id: "all-customers-1",
-      content: "Bestseller",
+      content: "Top Sold Products",
       accessibilityLabel: "All customers",
       panelID: "all-customers-content-1",
       component: <SoldProducts />,

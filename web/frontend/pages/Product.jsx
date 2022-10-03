@@ -1,21 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  IndexTable,
-  TextStyle,
-  useIndexResourceState,
-  TextField
-} from "@shopify/polaris";
 import { useAppQuery } from "../hooks";
-import  BulkActions from "../components/bulkActions/BulkActions"
-import { Link } from "react-router-dom";
 import SeacrchFilter from '../components/searchFilter/SearchFilter'
-const resourceName = {
-  singular: "product",
-  plural: "products",
-};
+
 export default function Product() {
-  const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([])
   const [productsData, setProductsData] = useState([])
 
@@ -33,40 +20,6 @@ export default function Product() {
         setProductsData(data)
     }
   }, [data, isProductLoading])
-
-  const { selectedResources, allResourcesSelected, handleSelectionChange } =
-    useIndexResourceState(products);
-
-    const rowMarkup = products
-    ? products.map(
-        (
-          { id, title, variants },
-          index
-        ) => (
-          <IndexTable.Row
-            id={id}
-            key={id}
-            selected={selectedResources.includes(id)}
-            position={index}
-          >
-            <IndexTable.Cell>
-              <TextStyle variation="strong">
-                <Link
-                  to={`/product/${id}`}
-                  style={{ color: "black", textDecoration: "none" }}
-                >
-                  {title}
-                </Link>
-              </TextStyle>
-            </IndexTable.Cell>
-            <IndexTable.Cell>${variants[0].price}</IndexTable.Cell>
-            <IndexTable.Cell>{variants[0].sku}</IndexTable.Cell>
-            <IndexTable.Cell>{variants[0].inventory_quantity}</IndexTable.Cell>
-            <IndexTable.Cell>{variants[0].old_inventory_quantity}</IndexTable.Cell>
-          </IndexTable.Row>
-        )
-      )
-    : null;
 
   return (
     <>
