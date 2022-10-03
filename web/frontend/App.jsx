@@ -50,7 +50,7 @@ export default function App() {
                 },
                 {
                   label: "Products",
-                  destination: "/products",
+                  destination: "/product",
                 },
                 
 
