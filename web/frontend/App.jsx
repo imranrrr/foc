@@ -21,9 +21,39 @@ export default function App() {
             <NavigationMenu
               navigationLinks={[
                 {
-                  label: "Product Page",
+                  label: "Dashboard",
+                  destination: "/dashboard",
+                },
+                {
+                  label: "Suppliers",
+                  destination: "/suppliers",
+                },
+                {
+                  label: "Inbox",
+                  destination: "/inbox",
+                },
+                {
+                  label: "Stocktakes",
+                  destination: "/stocktakes",
+                },
+                {
+                  label: "Receiving",
+                  destination: "/receiving",
+                },
+                {
+                  label: "Purchase Orders",
+                  destination: "/purchase-orders",
+                },
+                {
+                  label: "Inventory",
+                  destination: "/inventory",
+                },
+                {
+                  label: "Products",
                   destination: "/product",
-                }
+                },
+                
+
               ]}
             />
             <Routes pages={pages} />
