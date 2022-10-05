@@ -1,54 +1,16 @@
-import { Card, Tabs } from "@shopify/polaris";
-import { useState, useCallback } from "react";
+import React from "react"
 import LowInventory from "../components/dashboard/LowInventory/LowInventory";
 import OutOfStock from "../components/dashboard/OutOfStock/OutOfStock";
 import SoldProducts from "../components/dashboard/SoldProducts/SoldProducts";
-import Messages from "../components/dashboard/Messages/Messages";
+import  Messages  from "../components/dashboard/Messages/Messages"
+export default function Dashboard(){
 
-const Dashboard = () => {
-  const [selected, setSelected] = useState(0);
-
-  const handleTabChange = useCallback(
-    (selectedTabIndex) => setSelected(selectedTabIndex),
-    []
-  );
-
-  const tabs = [
-    {
-      id: "all-customers-1",
-      content: "Bestseller",
-      accessibilityLabel: "All customers",
-      panelID: "all-customers-content-1",
-      component: <SoldProducts />,
-    },
-    {
-      id: "accepts-marketing-2",
-      content: "Low Inventory",
-      panelID: "accepts-marketing-content-1",
-      component: <LowInventory />,
-    },
-    {
-      id: "accepts-marketing-1",
-      content: "Out of Stock",
-      panelID: "accepts-marketing-content-1",
-      component: <OutOfStock />,
-    },
-    {
-      id: "accepts-messages-1",
-      content: "My messages",
-      panelID: "accepts-marketing-content-1",
-      component: <Messages />,
-    },
-  ];
-
-  return (
-    <Card>
-      <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
-        <Card.Section title={tabs[selected].content}>
-          {tabs[selected].component}
-        </Card.Section>
-      </Tabs>
-    </Card>
-  );
-};
-export default Dashboard;
+    return(
+        <div style={{display: 'flex', flexWrap: "wrap"}}>
+            <LowInventory width="590px" />
+            <OutOfStock  width="590px"/>
+            <SoldProducts  width="590px"/>
+            <Messages  width="590px"/>
+        </div>
+    )
+}

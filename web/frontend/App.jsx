@@ -21,10 +21,6 @@ export default function App() {
             <NavigationMenu
               navigationLinks={[
                 {
-                  label: "Dashboard",
-                  destination: "/dashboard",
-                },
-                {
                   label: "Products",
                   destination: "/product",
                 },
