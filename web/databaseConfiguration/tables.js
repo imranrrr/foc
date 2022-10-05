@@ -31,11 +31,13 @@ export default function tables() {
   //   console.log("dropepppp################")
   //   knex1.schema.dropTable('comments')
   // }
-    
-
   });
-  knex1.schema.alterTable('comments', function(t) {
-    t.string('to', 40) 
+  knex1.schema.hasTable("comments").then(function (exists) {
+    if(exists){
+      console.log("herererererererere")
+      knex1.schema.alterTable('comments', function(t) {
+        t.string('to', 40);
+      });
+    }
   });
-  
 }
