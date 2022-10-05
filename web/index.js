@@ -13,7 +13,6 @@ import redirectToAuth from "./helpers/redirect-to-auth.js";
 import { BillingInterval } from "./helpers/ensure-billing.js";
 import { AppInstallations } from "./app_installations.js";
 import productRoute from "./routes/productRoute.js";
-import mysqlTable from "./databaseConfiguration/tables.js";
 import cors from "cors";
 import tables from "./databaseConfiguration/tables.js";
 
@@ -74,12 +73,12 @@ export async function createServer(
 ) {
   const app = express();
   app.use(cors())
-  tables();
+  
   app.set("use-online-tokens", USE_ONLINE_TOKENS);
   app.use(cookieParser(Shopify.Context.API_SECRET_KEY));
 
   applyAuthMiddleware(app);
-
+  tables();
   // Do not call app.use(express.json()) before processing webhooks with
   // Shopify.Webhooks.Registry.process().
   // See https://github.com/Shopify/shopify-api-node/blob/main/docs/usage/webhooks.md#note-regarding-use-of-body-parsers
