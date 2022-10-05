@@ -62,9 +62,9 @@ export default function productRoute(app){
         );
         const { id } = req.params;
         const params = id.split("^")
-    
+          console.log(params)
         const userInfo = session?.onlineAccessInfo?.associated_user
-        const response = await createComment({product_id: params[1], description: params[0], user_name: "test", date: new Date()} );
+        const response = await createComment({product_id: params[1], description: params[0], to: params[2], user_name: "test", date: new Date()} );
         
         res.status(200).send(response);
       });

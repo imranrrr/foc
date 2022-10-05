@@ -5,13 +5,15 @@ import SeacrchFilter from '../components/searchFilter/SearchFilter'
 export default function Product() {
   const [products, setProducts] = useState([])
   const [productsData, setProductsData] = useState([])
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     data,
-    refetch: refetchProducts,
+    refetch,
     isLoading: isProductLoading,
   } = useAppQuery({
     url: "/api/products",
+    refetchOnMount: 'always'
   });
 
   useEffect(()=>{
@@ -23,7 +25,7 @@ export default function Product() {
 
   return (
     <>
-      <SeacrchFilter products={products} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetchProducts}/>
+      <SeacrchFilter setIsLoading={setIsLoading} isLoading={isLoading} title="Products" products={products} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetch}/>
       {/* <Card
         title="Products"
         sectioned

@@ -16,7 +16,7 @@ const resourceName = {
     plural: "messages",
   };
 
-const Messages = () => {
+const Messages = ({width}) => {
   const [messages, setMessages] = useState([])
 
   const {
@@ -31,7 +31,7 @@ const Messages = () => {
     useIndexResourceState(messages);
 
   const rowMarkup = messages
-    ? messages.map(({ id, description, user_name, date }, index) => (
+    ? messages.map(({ id, description, user_name, date, to }, index) => (
         <IndexTable.Row
           id={id}
           key={id}
@@ -52,7 +52,8 @@ const Messages = () => {
              
         </div>
           </IndexTable.Cell>
-          <IndexTable.Cell>${description}</IndexTable.Cell>
+          <IndexTable.Cell>{description}</IndexTable.Cell>
+          <IndexTable.Cell>{to}</IndexTable.Cell>
           <IndexTable.Cell>{date}</IndexTable.Cell>
         </IndexTable.Row>
       ))
@@ -60,27 +61,38 @@ const Messages = () => {
 
   useEffect(()=>{
     if(!isMessageLoading && data){    
-      setMessages(data.commentsList.slice(0,5))
+      setMessages(data.commentsList.slice(data.commentsList.length - 5,data.commentsList.length - 1))
     }
   }, [data, isMessageLoading])
  
   return (
-    <IndexTable
-        resourceName={resourceName}
-        itemCount={messages.length}
-        selectedItemsCount={
-        allResourcesSelected ? "All" : selectedResources.length
-        }
-        loading={isMessageLoading}
-        onSelectionChange={handleSelectionChange}
-        headings={[
-        { title: "User Name" },
-        { title: "Messages" },
-        { title: "Date" }
-        ]}
-    >
-        {rowMarkup}
-  </IndexTable>
+    <div style={{width: `${width}`,  padding: "20px 5px",  height: "300px" }}>
+       <div style={{ height: "308px" }}>
+        <Card style={{height: "312px" }}>
+        <Card.Section style={{height: "100px" }}>
+          <h1 style={{fontWeight: "bold"}}>Messages</h1>
+        </Card.Section>
+          <IndexTable
+              resourceName={resourceName}
+              itemCount={messages.length}
+              selectedItemsCount={
+              allResourcesSelected ? "All" : selectedResources.length
+              }
+              loading={isMessageLoading}
+              onSelectionChange={handleSelectionChange}
+              headings={[
+              { title: "User Name" },
+              { title: "Messages" },
+              { title: "To" },
+              { title: "Date" }
+              ]}
+          >
+              {rowMarkup}
+          </IndexTable>
+        </Card>
+      </div>
+    </div>
+
   );
 };
 

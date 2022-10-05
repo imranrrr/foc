@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useAppQuery } from "../../../hooks";
 import SeacrchFilter from '../../searchFilter/SearchFilter';
 
-const OutOfStock = () => {
+const OutOfStock = ({width}) => {
   
   const [products, setProducts] = useState([])
   const [productsData, setProductsData] = useState([])
@@ -24,7 +24,9 @@ const OutOfStock = () => {
   }, [data, isProductLoading])
  
   return (
-    <SeacrchFilter products={products.slice(0,5)} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetchProducts}/>
+    <div style={{width: `${width}`, padding: "20px 5px" , height:"300px"}}>
+      <SeacrchFilter title={"Out of Stuck"} products={products.slice(0,5)} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetchProducts}/>
+    </div>
   );
 };
 

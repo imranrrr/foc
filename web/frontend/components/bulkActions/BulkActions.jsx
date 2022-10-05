@@ -26,7 +26,7 @@ const BulkActions = ({ products, selectedProducts, setLoading, isLoading }) => {
   };
   const handleExportedAction = useCallback(() => console.log(products));
 
-  const updateStatus = async (status, productId) =>{
+  const updateStatus = async (status, productId, index) =>{
     
     // const parsedBody = { description: comment, date: new Date() };
     const method = "PUT";
@@ -35,39 +35,40 @@ const BulkActions = ({ products, selectedProducts, setLoading, isLoading }) => {
       method,
       headers: { "Content-Type": "application/json" },
     });
+
+    if(index +1 === selectedProducts.length){
+      setLoading(false);
+    }
   }
 
   const activeProduct = async () =>{
     await setLoading(true);
     setActive(false)
-    selectedProducts.map((id) =>{
+    selectedProducts.map((id, index) =>{
       const product = products.find((product) => product.id === id)
       const status = "active";
-      updateStatus(status, id)
+      updateStatus(status, id, index)
     })
-    setLoading(false);
-  }
+  } 
 
   const archiveProduct = async () =>{
     await setLoading(true);
     setActive(false)
-    selectedProducts.map((id) =>{
+    selectedProducts.map((id, index) =>{
       const product = products.find((product) => product.id === id)
-      const status = "archived."
-      updateStatus(status, id)
+      const status = "archived"
+      updateStatus(status, id, index)
     })
-    setLoading(false);
   }
 
   const draftProduct = async () =>{
     await setLoading(true);
     setActive(false)
-    selectedProducts.map((id) =>{
+    selectedProducts.map((id, index) =>{
       const product = products.find((product) => product.id === id)
       const status = "draft"
-      updateStatus(status, id)
+      updateStatus(status, id, index)
     })
-    setLoading(false);
   }
 
   const activator = (
@@ -101,7 +102,7 @@ const BulkActions = ({ products, selectedProducts, setLoading, isLoading }) => {
             },
             {
               content: "Turn live in shopify",
-              onAction: archiveProduct,
+              onAction: activeProduct,
             },
             {
               content: "Activate Product",

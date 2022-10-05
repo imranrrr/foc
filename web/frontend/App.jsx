@@ -25,6 +25,10 @@ export default function App() {
                   destination: "/dashboard",
                 },
                 {
+                  label: "Products",
+                  destination: "/product",
+                },
+                {
                   label: "Suppliers",
                   destination: "/suppliers",
                 },
@@ -48,12 +52,7 @@ export default function App() {
                   label: "Inventory",
                   destination: "/inventory",
                 },
-                {
-                  label: "Products",
-                  destination: "/product",
-                },
                 
-
               ]}
             />
             <Routes pages={pages} />

@@ -21,12 +21,15 @@ export default function SeacrchFilter({
   isProductLoading,
   setProductsData,
   productsData,
+  setIsLoading,
+  isLoading,
+  title,
   refetchProducts
 }) {
   const [moneySpent, setMoneySpent] = useState(null);
   const [vendor, setVendor] = useState(null);
   const [queryValue, setQueryValue] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  
 
   const handleFiltersQueryChange = (value) => {
     const flterProducts =
@@ -178,7 +181,8 @@ export default function SeacrchFilter({
 
     useEffect(()=>{
       if (!isLoading && products){
-        return refetchProducts;
+        debugger
+        return refetchProducts();
       }
     }, [isLoading])
 
@@ -239,6 +243,7 @@ export default function SeacrchFilter({
     <div style={{ height: "568px" }}>
       <Card>
         <Card.Section>
+          <h1 style={{fontWeight: "bold"}}>{title}</h1>
           <Filters
             queryValue={queryValue}
             filters={filters}
@@ -251,7 +256,7 @@ export default function SeacrchFilter({
           </Filters>
         </Card.Section>
         <IndexTable
-          resourceName={resourceName}
+          // resourceName={resourceName}
           itemCount={products.length}
           selectedItemsCount={
             allResourcesSelected ? "All" : selectedResources.length

@@ -2,7 +2,7 @@ import { data } from "@shopify/app-bridge/actions/Modal";
 import React, {useState, useEffect} from "react";
 import { useAppQuery } from "../../../hooks";
 import SeacrchFilter from '../../searchFilter/SearchFilter';
-const SoldProducts = () => {
+const SoldProducts = ({width}) => {
 
   const [products, setProducts] = useState([])
   const [productsData, setProductsData] = useState([])
@@ -23,7 +23,9 @@ const SoldProducts = () => {
   }, [data, isProductLoading])
  
   return (
-    <SeacrchFilter products={products.slice(0,5)} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetchProducts}/>
+    <div style={{width: `${width}`, padding: "20px 5px",  height:"300px"}}>
+      <SeacrchFilter title={"Sold Products"} products={products.slice(0,5)} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetchProducts}/>
+    </div>
   );
 };
 

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useAppQuery } from "../../../hooks";
 import SeacrchFilter from '../../searchFilter/SearchFilter';
 
-const LowInventory = () => {
+const LowInventory = ({width}) => {
   const [products, setProducts] = useState([])
   const [productsData, setProductsData] = useState([])
 
@@ -23,8 +23,10 @@ const LowInventory = () => {
   }, [data, isProductLoading])
  
   return (
-    <SeacrchFilter products={products} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetchProducts}/>
-  );
+    <div style={{width: `${width}`, padding: "20px 5px", height:"300px"}}>
+      <SeacrchFilter title={"Low Inventory"} products={products.slice(0,5)} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetchProducts}/>
+    </div>
+    );
 };
 
 export default LowInventory;

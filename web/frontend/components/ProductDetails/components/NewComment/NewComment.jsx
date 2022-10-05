@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import "./NewComment.css";
-import { Button } from "@shopify/polaris";
+import { Button, TextField } from "@shopify/polaris";
 import { useAuthenticatedFetch } from "../../../../hooks";
 
 const NewComment = ({productId}) => {
@@ -8,6 +8,7 @@ const NewComment = ({productId}) => {
   const [isLoading, setIsLoading] = useState(false);
   const emptyToastProps = { content: null };
   const [toastProps, setToastProps] = useState(emptyToastProps);
+  const [to, setTo] = useState("")
 
   const fetch = useAuthenticatedFetch();
 
@@ -19,7 +20,7 @@ const NewComment = ({productId}) => {
     setIsLoading(true);
     const parsedBody = { description: comment, date: new Date() };
     const method = "POST";
-    const  message = comment+"^"+productId
+    const  message = comment+"^"+productId+"^"+to
 
     await fetch(`/api/comment/${message}`, {
       method,
@@ -35,6 +36,7 @@ const NewComment = ({productId}) => {
       {toastMarkup}
       <main className="comments__newComment">
         <section className="comments__newComment__addNew">
+          <TextField type="text" value={to} onChange={(e) => setTo(e)} placeholder="To" style={{marginBottom: "20px"}}/>
           <textarea placeholder="Add your message here..." rows="8" onChange={(e) => setComment(e.target.value)} value={comment}/>
           <div className="comments__newComment__addNew__button">
             <Button loading={isLoading} onClick={onSubmit}>Submit</Button>
