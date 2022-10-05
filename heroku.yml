@@ -2,7 +2,7 @@ build:
   docker:
     web: Dockerfile
   config:
-    SHOPIFY_API_KEY: 2f28610846572aab3aa23ae55199f41f
+    SHOPIFY_API_KEY: 6b5cdfff1c1d8eda83e31baefef1d3c3
 #   depends_on:
 #     - mysqldb
 # db:
