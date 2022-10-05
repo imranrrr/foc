@@ -25,7 +25,7 @@ export default function Product() {
 
   return (
     <>
-      <SeacrchFilter setIsLoading={setIsLoading} isLoading={isLoading} title="Products" products={products} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetch}/>
+      <SeacrchFilter height='0px' setIsLoading={setIsLoading} isLoading={isLoading} title="Products" products={products} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetch}/>
       {/* <Card
         title="Products"
         sectioned

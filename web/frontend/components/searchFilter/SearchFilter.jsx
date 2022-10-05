@@ -24,7 +24,8 @@ export default function SeacrchFilter({
   setIsLoading,
   isLoading,
   title,
-  refetchProducts
+  refetchProducts,
+  height
 }) {
   const [moneySpent, setMoneySpent] = useState(null);
   const [vendor, setVendor] = useState(null);
@@ -240,7 +241,7 @@ export default function SeacrchFilter({
       ))
     : null;
   return (
-    <div style={{ height: "568px" }}>
+    <div style={{ height: height }}>
       <Card>
         <Card.Section>
           <h1 style={{fontWeight: "bold"}}>{title}</h1>

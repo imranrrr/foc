@@ -36,7 +36,9 @@ const NewComment = ({productId}) => {
       {toastMarkup}
       <main className="comments__newComment">
         <section className="comments__newComment__addNew">
-          <TextField type="text" value={to} onChange={(e) => setTo(e)} placeholder="To" style={{marginBottom: "20px"}}/>
+          <div style={{margin: "10px"}}>
+            <TextField type="text" value={to} onChange={(e) => setTo(e)} placeholder="To"/>
+          </div>
           <textarea placeholder="Add your message here..." rows="8" onChange={(e) => setComment(e.target.value)} value={comment}/>
           <div className="comments__newComment__addNew__button">
             <Button loading={isLoading} onClick={onSubmit}>Submit</Button>
