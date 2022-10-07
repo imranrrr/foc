@@ -1,7 +1,7 @@
 import knex from "knex";
 
 export default function knexObject() {
-  const knex1 = knex({
+  const knexObj = knex({
     client: "mysql",
     connection: {
       host: process.env.DB_HOST,
@@ -10,5 +10,5 @@ export default function knexObject() {
       database: process.env.DATABASE,
     },
   });
-  return { knex1 };
+  return { knexObj };
 }

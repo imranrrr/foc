@@ -1,9 +1,9 @@
 import { Shopify } from "@shopify/shopify-api";
 import verifyRequest from "../middleware/verify-request.js";
-import knexObject from "../databaseConfiguration/database.js";
+import knex from "../databaseConfiguration/database.js";
 import useQueries from "../databaseConfiguration/useQueries.js";
 export default function productRoute(app){
-    const { knex1 } = knexObject();
+    
     const {getComments, createComment, getMessagess} = useQueries()
 
     app.get("/api/products", async (req, res) => {

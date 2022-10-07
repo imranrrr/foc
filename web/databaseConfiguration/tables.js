@@ -1,10 +1,10 @@
 import knexObject from "./database.js";
 
 export default function tables() {
-  const { knex1 } = knexObject();
-  knex1.schema.hasTable("books").then(function (exists) {
+  const { knexObj } = knexObject();
+  knexObj.schema.hasTable("books").then(function (exists) {
     if (!exists) {
-      return knex1.schema.createTable("books", function (t) {
+      return knexObj.schema.createTable("books", function (t) {
         t.increments("id").primary();
         t.string("title", 100);
         t.string("author", 100);
@@ -14,10 +14,10 @@ export default function tables() {
     }
   });
 
-  knex1.schema.hasTable("comments").then(function (exists) {
+  knexObj.schema.hasTable("comments").then(function (exists) {
     if (!exists) {
       console.log("hh")
-      return knex1.schema.createTable("comments", function (t) {
+      return knexObj.schema.createTable("comments", function (t) {
         t.increments("id").primary();
         t.string("product_id", 30);
         t.string("user_email", 30);
@@ -29,13 +29,13 @@ export default function tables() {
     }
   // if(exists){
   //   console.log("dropepppp################")
-  //   knex1.schema.dropTable('comments')
+  //   knexObj.schema.dropTable('comments')
   // }
   });
-  knex1.schema.hasTable("comments").then(function (exists) {
+  knexObj.schema.hasTable("comments").then(function (exists) {
     if(exists){
       console.log("herererererererere")
-      knex1.schema.alterTable('comments', function(t) {
+      knexObj.schema.table('comments', function(t) {
         t.string('to', 40);
       });
     }
