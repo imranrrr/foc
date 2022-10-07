@@ -15,7 +15,7 @@ import { AppInstallations } from "./app_installations.js";
 import productRoute from "./routes/productRoute.js";
 import cors from "cors";
 import tables from "./databaseConfiguration/tables.js";
-
+import addMessageTo from './databaseConfiguration/addMessageTo'
 
 const USE_ONLINE_TOKENS = false;
 
@@ -79,6 +79,7 @@ export async function createServer(
 
   applyAuthMiddleware(app);
   tables();
+  addMessageTo();
   // Do not call app.use(express.json()) before processing webhooks with
   // Shopify.Webhooks.Registry.process().
   // See https://github.com/Shopify/shopify-api-node/blob/main/docs/usage/webhooks.md#note-regarding-use-of-body-parsers
