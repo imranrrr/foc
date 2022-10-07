@@ -5,7 +5,7 @@ export default function useQueries(){
   
   async function getComments(id){
       try {
-        const commentsList = await knexObj.select().from("comments").where({product_id: id})
+        const commentsList = await knexObj.select().from("messages").where({product_id: id})
         return {status: true, comment: commentsList}
       }catch(err){
         return {status: false, error: err}
@@ -14,7 +14,7 @@ export default function useQueries(){
   
   async function createComment(args){
       try {
-        const response = await knexObj('comments').insert({to: args.to, description: args.description, date: args.date, user_name: args.user_name, product_id: args.product_id})
+        const response = await knexObj('messages').insert({to: args.to, description: args.description, date: args.date, user_name: args.user_name, product_id: args.product_id})
         console.log({description: args.description, date: args.date, user_name: args.user_name, product_id: args.product_id})
         return {status: true, response: response}
       }catch(err){
@@ -24,7 +24,7 @@ export default function useQueries(){
 
   async function getMessagess(){
     try {
-      const commentsList = await knexObj.select().from("comments")
+      const commentsList = await knexObj.select().from("messages")
       return {commentsList}
     }catch(err){
       return {status: false, error: err}

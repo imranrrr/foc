@@ -32,10 +32,16 @@ export default function tables() {
   //   knexObj.schema.dropTable('comments')
   // }
   });
-  knexObj.schema.hasTable("comments").then(function (exists) {
-    if(exists){
-      console.log("herererererererere")
-      knexObj.schema.table('comments', function(t) {
+  knexObj.schema.hasTable("messages").then(function (exists) {
+    if(!exists){
+      knexObj.schema.table('messages', function(t) {
+        t.increments("id").primary();
+        t.string("product_id", 30);
+        t.string("user_email", 30);
+        t.string("user_id", 30);
+        t.string("user_name", 30);
+        t.string("description", 100);
+        t.string("date", 100);
         t.string('to', 40);
       });
     }
