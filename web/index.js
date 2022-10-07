@@ -15,7 +15,7 @@ import { AppInstallations } from "./app_installations.js";
 import productRoute from "./routes/productRoute.js";
 import cors from "cors";
 import tables from "./databaseConfiguration/tables.js";
-import addMessageTo from './databaseConfiguration/addMessageTo'
+import addMessageTo from "./databaseConfiguration/addMessageTo.js"
 
 const USE_ONLINE_TOKENS = false;
 
