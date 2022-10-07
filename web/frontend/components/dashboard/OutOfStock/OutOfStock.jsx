@@ -25,7 +25,7 @@ const OutOfStock = ({width}) => {
  
   return (
     <div style={{width: `${width}`, padding: "20px 5px" , height:"300px"}}>
-      <SeacrchFilter title={"Out of Stuck"} products={products.slice(0,5)} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetchProducts}/>
+      <SeacrchFilter height='0px' title={"Out of Stuck"} products={products.length > 1 ? products.slice(0,5) : []} isProductLoading={isProductLoading} productsData={productsData} setProductsData={setProductsData} refetchProducts={refetchProducts}/>
     </div>
   );
 };
