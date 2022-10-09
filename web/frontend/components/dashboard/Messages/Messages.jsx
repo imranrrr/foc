@@ -61,7 +61,7 @@ const Messages = ({width}) => {
 
   useEffect(()=>{
     if(!isMessageLoading && data){    
-      setMessages(data.commentsList.length > 0 ? data.commentsList.slice(data.commentsList.length - 5,data.commentsList.length - 1) : [])
+      setMessages(data.messagesList.length > 0 ? data.messagesList.slice(data.messagesList.length - 5,data.messagesList.length - 1) : [])
     }
   }, [data, isMessageLoading])
  

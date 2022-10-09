@@ -14,8 +14,9 @@ import { BillingInterval } from "./helpers/ensure-billing.js";
 import { AppInstallations } from "./app_installations.js";
 import productRoute from "./routes/productRoute.js";
 import cors from "cors";
-import tables from "./databaseConfiguration/tables.js";
-import addMessageTo from "./databaseConfiguration/addMessageTo.js"
+// import tables from "./databaseConfiguration/tables.js";
+// import addMessageTo from "./databaseConfiguration/addMessageTo.js"
+import knex from './knex/knex.js'
 
 const USE_ONLINE_TOKENS = false;
 
@@ -65,21 +66,30 @@ const BILLING_SETTINGS = {
 // https://shopify.dev/apps/webhooks/configuration/mandatory-webhooks
 setupGDPRWebHooks("/api/webhooks");
 
+async function assertDatabaseConnection() {
+  return knex.raw('select 1+1 as result')
+      .then(() => console.log("connected"))
+      .catch((err) => {
+          console.log('[Fatal] Failed to establish connection to database! Exiting...');
+          console.log(err);
+          process.exit(1);
+      });
+}
 // export for test use only
 export async function createServer(
   root = process.cwd(),
   isProd = process.env.NODE_ENV === "production",
   billingSettings = BILLING_SETTINGS
 ) {
+
   const app = express();
   app.use(cors())
-  
+  assertDatabaseConnection()
+
   app.set("use-online-tokens", USE_ONLINE_TOKENS);
   app.use(cookieParser(Shopify.Context.API_SECRET_KEY));
 
   applyAuthMiddleware(app);
-  tables();
-  addMessageTo();
   // Do not call app.use(express.json()) before processing webhooks with
   // Shopify.Webhooks.Registry.process().
   // See https://github.com/Shopify/shopify-api-node/blob/main/docs/usage/webhooks.md#note-regarding-use-of-body-parsers
